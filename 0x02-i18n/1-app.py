@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Basic Flask app
+Basic Flask app with babel
 """
 
 from flask import Flask, render_template
@@ -11,8 +11,8 @@ class Config:
     """AI is creating summary for Config class
     """
     LANGUAGES = ["en", "fr"]
-    BABEL_DEFUALT_LOCALE = "en"
-    BABEL_DEFUALT_TIMEZONE = "UTC"
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
