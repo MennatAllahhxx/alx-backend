@@ -3,7 +3,7 @@
 Basic Flask app with babel
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 users = {
@@ -34,8 +34,8 @@ def index():
     Returns:
         str: html template
     """
-    usr = g.user
-    return render_template('5-index.html', username=usr)
+    username = g.user
+    return render_template('5-index.html', username=username)
 
 
 @babel.localeselector
@@ -65,9 +65,9 @@ def get_user():
 def before_request():
     """AI is creating summary for before_request
     """
-    usr = get_user()
-    if usr:
-        g.user = usr['name']
+    user = get_user()
+    if user:
+        g.user = user['name']
     else:
         g.user = None
 
