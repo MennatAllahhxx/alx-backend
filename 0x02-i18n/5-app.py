@@ -54,11 +54,7 @@ def get_user():
 def before_request():
     """AI is creating summary for before_request
     """
-    user = get_user()
-    if user:
-        g.user = user['name']
-    else:
-        g.user = None
+    g.user = get_user()
 
 
 @app.route('/')
@@ -68,7 +64,10 @@ def index():
     Returns:
         str: html template
     """
-    username = g.user
+    if g.user:
+        username = g.user['name']
+    else:
+        username = None
     return render_template('5-index.html', username=username)
 
 
