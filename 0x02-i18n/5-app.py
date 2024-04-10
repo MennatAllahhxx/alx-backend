@@ -27,17 +27,6 @@ babel = Babel(app)
 app.config.from_object(Config)
 
 
-@app.route('/')
-def index():
-    """AI is creating summary for index
-
-    Returns:
-        str: html template
-    """
-    username = g.user
-    return render_template('5-index.html', username=username)
-
-
 @babel.localeselector
 def get_locale():
     """AI is creating summary for get_locale
@@ -71,6 +60,17 @@ def before_request():
         g.user = user['name']
     else:
         g.user = None
+
+
+@app.route('/')
+def index():
+    """AI is creating summary for index
+
+    Returns:
+        str: html template
+    """
+    username = g.user
+    return render_template('5-index.html', username=username)
 
 
 if __name__ == "__main__":
