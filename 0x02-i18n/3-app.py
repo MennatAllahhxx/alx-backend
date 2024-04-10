@@ -27,7 +27,7 @@ def index():
     Returns:
         str: html template
     """
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 @babel.localeselector
