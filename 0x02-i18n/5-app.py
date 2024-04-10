@@ -45,7 +45,7 @@ def get_user():
         Union[Dict, None]: user dictionary if found otherwise None
     """
     try:
-        return users[int(request.args.get('login_as'))]
+        return users.get(int(request.args.get('login_as')))
     except Exception:
         return None
 
