@@ -34,9 +34,9 @@ def index():
 def get_locale():
     """AI is creating summary for get_locale
     """
-    if ('locale' in request.args) and
+    if (request.args.get('locale')) and\
        (request.args.get('locale') in app.config['LANGUAGES']):
-       return request.args.get('locale')
+        return request.args.get('locale')
 
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
