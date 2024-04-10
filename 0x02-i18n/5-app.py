@@ -58,7 +58,8 @@ def get_user():
     if request.args.get('login_as') and \
        users[int(request.args.get('login_as'))]:
         return users[int(request.args.get('login_as'))]
-    return None
+    else:
+        return None
 
 
 @app.before_request
