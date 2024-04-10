@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
-"""
-Basic Flask app with babel
-"""
-
+""" Flask app """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
+app = Flask(__name__)
+
 
 class Config:
-    """AI is creating summary for Config class
-    """
+    """ Config class """
     LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
+    BABEL_DEFAULT_LOCALE = "en"
 
 
-app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
+
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -27,23 +25,8 @@ users = {
 }
 
 
-@babel.localeselector
-def get_locale():
-    """AI is creating summary for get_locale
-    """
-    if (request.args.get('locale')) and\
-       (request.args.get('locale') in app.config['LANGUAGES']):
-        return request.args.get('locale')
-
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 def get_user():
-    """AI is creating summary for get_user
-
-    Returns:
-        Union[Dict, None]: user dictionary if found otherwise None
-    """
+    """ Get user """
     try:
         return users.get(int(request.args.get('login_as')))
     except Exception:
@@ -52,24 +35,25 @@ def get_user():
 
 @app.before_request
 def before_request():
-    """AI is creating summary for before_request
-    """
+    """ Before request """
     g.user = get_user()
 
 
-@app.route('/')
-def index():
-    """AI is creating summary for index
+@babel.localeselector
+def get_locale() -> str:
+    """ Get locale """
+    locale = request.args.get('locale')
+    if locale and locale in app.config['LANGUAGES']:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-    Returns:
-        str: html template
-    """
-    if g.user:
-        username = g.user['name']
-    else:
-        username = None
+
+@app.route('/', strict_slashes=False)
+def index() -> str:
+    """ Returns the index page """
+    username = g.user.get("name") if g.user else None
     return render_template('5-index.html', username=username)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
