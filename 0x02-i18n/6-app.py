@@ -34,10 +34,10 @@ def get_locale():
     if (request.args.get('locale')) and\
        (request.args.get('locale') in app.config['LANGUAGES']):
         return request.args.get('locale')
-    
+
     elif g.user and g.user['locale'] in app.config['LANGUAGES']:
-        return g.user['locale'] 
-    
+        return g.user['locale']
+
     elif request.headers['locale'] in app.config['LANGUAGES']:
         return request.headers['locale']
 
