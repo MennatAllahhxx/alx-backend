@@ -59,6 +59,15 @@ class Server:
         return self.__dataset[limit_idxes[0]:limit_idxes[1]]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+        """AI is creating summary for get_hyper
+
+        Args:
+            page (int, optional): page number. Defaults to 1.
+            page_size (int, optional): items per page. Defaults to 10.
+
+        Returns:
+            dict: a dictionary containing set of key-value pairs
+        """
         self.dataset()
         total_pages: int = math.ceil(len(self.__dataset) / page_size)
         data: List[List[str]] = self.get_page(page, page_size)
